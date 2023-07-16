@@ -37,10 +37,5 @@ class AuthController extends Controller
 
     }
 
-    public function getCurrentUser() {
-        // if(Auth::hasUser()){
-        //     return response(Auth::user());
-        // }
-        return response(['error' => "User not connected"],Response::HTTP_OK);
-    }
+   
 }
