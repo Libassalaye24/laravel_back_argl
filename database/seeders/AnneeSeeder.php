@@ -33,7 +33,7 @@ class AnneeSeeder extends Seeder
 
         foreach ($annees as $value) {
             # code...
-            $annee = AnneeScolaire::find($value['libelle']);
+            $annee = AnneeScolaire::where($value['libelle'])->first();
             if (!$annee) {
                 $annee = new AnneeScolaire();
             }
