@@ -24,7 +24,7 @@ class UserController extends Controller
     public function index()
     {
         //
-        return ["data" => UserResourceWeb::collection(User::paginate(5)) , "code"=>Response::HTTP_OK];
+        return UserResourceWeb::collection(User::paginate(3));
     }
 
     /**
@@ -42,7 +42,7 @@ class UserController extends Controller
             ]
         );
         $texte = 'Nous sommes ravis de vous informer que votre inscription sur notre plateforme a été effectuée avec succès. Bienvenue dans notre communauté ';
-        Outil::sendEmail($user->email , ' Confirmation d\'inscription réussie' , $texte , $user );  
+        Outil::sendEmail($user->email , ' Confirmation d\'inscription réussie' , $texte , $user );
         return new UserResourceWeb($user);
     }
 

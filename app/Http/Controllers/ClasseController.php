@@ -18,7 +18,9 @@ class ClasseController extends Controller
     {
         //
         $join =  $this->join($request);
+        // dd($join);
         if ($join != false) {
+
             return Classe::with($join)->get();
         }
         return Classe::all();

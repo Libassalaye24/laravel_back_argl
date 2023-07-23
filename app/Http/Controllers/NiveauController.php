@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NiveauxRequest;
+use App\Http\Requests\SimpleRequest;
+use App\Http\Resources\NiveauxResourceWebC;
+use App\Http\Resources\SimpleResourceWeb;
 use App\Models\Niveau;
 use App\Traits\RequestTrait;
 use Illuminate\Http\Request;
@@ -24,41 +28,50 @@ class NiveauController extends Controller
             return Niveau::with($join)->get();
        }
         //
-        return Niveau::all();
+        return SimpleResourceWeb::collection( Niveau::paginate(3));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(NiveauxRequest $request)
     {
         //
+        $niveau = Niveau::create(
+           [
+            "libelle" => $request->libelle,
+            "cycle_id" => $request->cycle_id,
+           ]
+        );
+
+        return new NiveauxResourceWebC($niveau);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Niveau $niveau
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Niveau $niveau)
     {
         //
+        return new NiveauxResourceWebC($niveau);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Niveau  $niveau
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(NiveauxRequest $request, Niveau $niveau)
     {
         //
+        $niveau->update($request->only('libelle','cycle_id'));
+        return new NiveauxResourceWebC($niveau);
     }
 
     /**

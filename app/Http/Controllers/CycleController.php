@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Cycle;
 use App\Traits\RequestTrait;
 use Illuminate\Http\Request;
+use App\Http\Requests\SimpleRequest;
+use App\Http\Resources\CyclesResourceWeb;
+use App\Http\Resources\SimpleResourceWeb;
 
 class CycleController extends Controller
 {
@@ -22,33 +25,36 @@ class CycleController extends Controller
         // dd($join);
         if ($join != false) {
 
-            return Cycle::with($join)->get();
+            return Cycle::with($join)->paginate(3);
         }
-        return Cycle::all(
-
-        );
+        return SimpleResourceWeb::collection(Cycle::paginate(3));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SimpleRequest $request)
     {
         //
+        $cycle = Cycle::create(
+            $request->libelle
+        );
+
+        return new SimpleResourceWeb($cycle);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Cycle $cycle)
     {
         //
+     
+        return new CyclesResourceWeb($cycle);
     }
 
     /**

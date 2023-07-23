@@ -16,7 +16,10 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // \App\Models\User::factory(10)->create();
-        \App\Models\Classe::factory(5)->create();
+        // \App\Models\Classe::factory(5)->create();
+        $this->call([
+            AnneeSeeder::class
+        ]);
         // Cycle::insert([
         //     ["libelle"=>"Elementaire"],
         //     ["libelle"=>"Moyen"],

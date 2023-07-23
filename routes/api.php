@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnneeScolaireController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -43,3 +44,7 @@ Route::middleware('auth:api')->group(function (){
 Route::apiResource("cycles",CycleController::class)->except(["update","destroy"]);
 Route::apiResource("niveaux",NiveauController::class)->only(["index","show","store"]);
 Route::apiResource("classes",ClasseController::class)->only(["index","show","store"]);
+
+Route::apiResource("annees",AnneeScolaireController::class)->only(["index","show","store" ,"update"]);
+Route::get('/annees/encours/infos',[AnneeScolaireController::class , 'infosAnneeEncours']);
+Route::put('/annees/encours/update/{id}',[AnneeScolaireController::class , 'updateAnneeScolaireEncours']);
