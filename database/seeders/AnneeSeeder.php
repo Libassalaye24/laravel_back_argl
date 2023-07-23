@@ -26,7 +26,7 @@ class AnneeSeeder extends Seeder
                 'etat' => 1
             ],
             [
-                'libelle' => '2023-2023',
+                'libelle' => '2023-2024',
                 'etat' => 0
             ],
         ];
